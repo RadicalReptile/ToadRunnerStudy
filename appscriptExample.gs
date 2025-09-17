@@ -88,7 +88,7 @@ function onChange(e) {
     }
 
     const token = PropertiesService.getScriptProperties().getProperty('SURVEY_TOKEN');
-    const baseUrl = 'https://us-central1-toadrunnerstudy.cloudfunctions.net/incrementGroup';
+    const baseUrl = 'https://us-central1-YOUR_PROJECT.cloudfunctions.net/incrementGroup';
 
     // Construct the full URL with query parameters, encoding each value for safety:
     // GET is fine security-wise because it’s backend-to-backend with secret tokens.
