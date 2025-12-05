@@ -34,7 +34,7 @@ jobs:
         
       # 3. CONVERT PUML TO SVG (FIXED: Using the reliable plantuml/plantuml-action@v2)
       - name: Generate SVG Diagrams
-        uses: plantuml/plantuml-action@v2
+        uses: Timmy/plantuml-action@v1
         with:
           # This converts all .puml files in the output directory
           path: ${{ env.UML_OUTPUT_PATH }}*.puml 
