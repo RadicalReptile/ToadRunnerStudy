@@ -39,10 +39,10 @@ jobs:
           path: ${{ env.UML_OUTPUT_PATH }}*.puml 
           args: -tsvg # Generates SVG files
 
-      # 4. Commit and Push Changes (FIXED: Changed 'files' to 'add')
+      # 4. Commit and Push Changes (FIXED: Added '.' to commit all contents of the directory)
       - uses: EndBug/add-and-commit@v7.0.0
         with:
           author_name: 'UML Bot'
           message: 'Generate UML (${{ github.workflow }})'
           author_email: 41898282+uml-bot[bot]@users.noreply.github.com
-          add: ${{ env.UML_OUTPUT_PATH }} # <-- FIX: Now using 'add' parameter
+          add: ${{ env.UML_OUTPUT_PATH }}. # <-- FIX: This ensures SVGs inside the UML folder are tracked
