@@ -1,16 +1,5 @@
 @startuml
 class CutsceneHandler {
-    + tunnelUIPanel : GameObject
-    + exitUIPanel : GameObject
-    + TunnelCG : RawImage
-    + ExitCG : RawImage
-    + tunnelPromptText : Text
-    + exitPromptText : Text
-    + leftButton : Button
-    + rightButton : Button
-    + surveyButton : Button
-    - tunnelCanvasGroup : CanvasGroup
-    - exitCanvasGroup : CanvasGroup
     - <<const>> FADE_FRAME_COUNT : int = 90
     - Awake() : void
     + StartCutscene() : void
@@ -20,4 +9,15 @@ class CutsceneHandler {
     - FadeAll(image:RawImage, canvasGroup:CanvasGroup, startColor:Color, endColor:Color, startAlpha:float, endAlpha:float, frameCount:int) : IEnumerator
 }
 MonoBehaviour <|-- CutsceneHandler
+CutsceneHandler --> "tunnelUIPanel" GameObject
+CutsceneHandler --> "exitUIPanel" GameObject
+CutsceneHandler --> "TunnelCG" RawImage
+CutsceneHandler --> "ExitCG" RawImage
+CutsceneHandler --> "tunnelPromptText" Text
+CutsceneHandler --> "exitPromptText" Text
+CutsceneHandler --> "leftButton" Button
+CutsceneHandler --> "rightButton" Button
+CutsceneHandler --> "surveyButton" Button
+CutsceneHandler --> "tunnelCanvasGroup" CanvasGroup
+CutsceneHandler --> "exitCanvasGroup" CanvasGroup
 @enduml

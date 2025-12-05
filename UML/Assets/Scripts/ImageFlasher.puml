@@ -1,16 +1,6 @@
 @startuml
 class ImageFlasher {
-    + {static} Instance : ImageFlasher <<get>>
-    - carTextToFlash : RawImage
-    - carArrowToFlash : RawImage
-    - stormTextToFlash : RawImage
-    - stormArrowToFlash : RawImage
-    - whiteImg : RawImage
-    - blackImg : RawImage
-    - scoreText : Text
     - flashDuration : float = 0.033f
-    - _flashWait : WaitForSecondsRealtime
-    - _currentFlashCoroutine : Coroutine
     - Awake() : void
     - DisableImageState() : void
     + TriggerCarFlash() : void
@@ -23,4 +13,14 @@ class CoroutineUtils <<static>> {
     + {static} WaitForFrames(frames:int) : IEnumerator
 }
 MonoBehaviour <|-- ImageFlasher
+ImageFlasher --> "Instance" ImageFlasher
+ImageFlasher --> "carTextToFlash" RawImage
+ImageFlasher --> "carArrowToFlash" RawImage
+ImageFlasher --> "stormTextToFlash" RawImage
+ImageFlasher --> "stormArrowToFlash" RawImage
+ImageFlasher --> "whiteImg" RawImage
+ImageFlasher --> "blackImg" RawImage
+ImageFlasher --> "scoreText" Text
+ImageFlasher --> "_flashWait" WaitForSecondsRealtime
+ImageFlasher --> "_currentFlashCoroutine" Coroutine
 @enduml

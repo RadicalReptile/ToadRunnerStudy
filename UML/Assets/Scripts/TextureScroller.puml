@@ -2,11 +2,11 @@
 class TextureScroller {
     - scrollSpeedX : float
     - scrollSpeedY : float
-    - meshRenderer : MeshRenderer
     - offsetX : float
     - offsetY : float
     - Awake() : void
     - Update() : void
 }
 MonoBehaviour <|-- TextureScroller
+TextureScroller --> "meshRenderer" MeshRenderer
 @enduml

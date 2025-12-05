@@ -1,11 +1,5 @@
 @startuml
 class GameManager {
-    + {static} Instance : GameManager <<get>>
-    - gameModeOverride : ParticipantGroup
-    + {static} CurrentGameMode : ParticipantGroup <<get>>
-    - scoreText : Text
-    - crunchSound : AudioClip
-    - playerController : ToadController
     - speedIncreasePerPoint : float = 0.1f
     - _score : int
     - Awake() : void
@@ -22,5 +16,11 @@ enum ParticipantGroup {
     ControlGroupBlank= 3,
 }
 MonoBehaviour <|-- GameManager
+GameManager --> "Instance" GameManager
+GameManager o-> "gameModeOverride" ParticipantGroup
+GameManager --> "CurrentGameMode" ParticipantGroup
+GameManager --> "scoreText" Text
+GameManager --> "crunchSound" AudioClip
+GameManager --> "playerController" ToadController
 GameManager +-- ParticipantGroup
 @enduml
