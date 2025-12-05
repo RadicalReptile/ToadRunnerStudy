@@ -35,9 +35,9 @@ jobs:
         # The tool will exit gracefully if CODE_PATH is empty
         
       # 3. CONVERT PUML TO SVG/PNG (THE FIX!)
-      - name: Generate SVG Diagrams (The Fix)
+      - name: PlantUML Action
         # We use a reliable, alternative action here
-        uses: plantuml/plantuml-action@v2 
+        uses: Timmy/plantuml-action@v1 
         with:
           # This tells the new action to convert all .puml files in the output directory
           path: ${{ env.UML_OUTPUT_PATH }}*.puml 
