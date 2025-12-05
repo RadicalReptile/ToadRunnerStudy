@@ -20,36 +20,34 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # 1. SETUP JAVA AND .NET (Now we need Java for PlantUML rendering)
+      # 1. SETUP JAVA AND .NET
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17' # PlantUML works great with Java 17
+          java-version: '17'
           
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 8.0.x 
+          dotnet-version: 8.0.x
 
-      # 2. INSTALL AND GENERATE PLANTUML FILES 
+      # 2. INSTALL AND GENERATE PLANTUML FILES
       - name: Generate PlantUML files
         run: |
-          dotnet tool install --global PlantUmlClassDiagramGenerator --version 1.4.0 
+          dotnet tool install --global PlantUmlClassDiagramGenerator --version 1.4.0
           puml-gen ${{ env.CODE_PATH }} ${{ env.UML_OUTPUT_PATH }} -dir ${{ env.UMP_GENERATION_PARAMETERS }}
         
-      # 3. CONVERT PUML TO SVG (THE FINAL, RELIABLE FIX: Running PlantUML directly)
+      # 3. CONVERT PUML TO SVG (FIXED: Using the stable SourceForge link)
       - name: Generate SVG Diagrams (Direct Execution)
         run: |
-          # 3a. Download the latest PlantUML JAR file
-          wget https://github.com/plantuml/plantuml/releases/tag/v1.2025.10/plantuml.jar
+          # 3a. Download the latest PlantUML JAR file from a stable source
+          wget https://downloads.sourceforge.net/project/plantuml/plantuml.jar -O plantuml.jar
           
           # 3b. Run the JAR file to process all .puml files into .svg
-          # -tsvg tells it to output SVG files.
-          # -D specifies the directory for output.
           java -jar plantuml.jar -tsvg ${{ env.UML_OUTPUT_PATH }}*.puml -o ${{ env.UML_OUTPUT_PATH }}
           
-      # 4. Commit and Push Changes 
+      # 4. Commit and Push Changes
       - uses: EndBug/add-and-commit@v7.0.0
         with:
           author_name: 'UML Bot'
