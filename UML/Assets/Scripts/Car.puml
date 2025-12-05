@@ -1,0 +1,14 @@
+@startuml
+class Car {
+    - speed : float = 100.0f
+    - _currentSpeed : float
+    - destroyDistanceBehindPlayer : float = 250.0f
+    - Awake() : void
+    - FixedUpdate() : void
+    - Update() : void
+    - OnTriggerEnter(other:Collider) : void
+}
+MonoBehaviour <|-- Car
+Car --> "driveBySound" AudioClip
+Car --> "playerTransform" Transform
+@enduml

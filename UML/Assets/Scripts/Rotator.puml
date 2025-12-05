@@ -1,0 +1,9 @@
+@startuml
+class Rotator {
+    - rotationSpeed : float = 50.0f
+    - Update() : void
+}
+MonoBehaviour <|-- Rotator
+Rotator o-> "rotationAxis" Vector3
+Rotator o-> "rotationSpace" Space
+@enduml

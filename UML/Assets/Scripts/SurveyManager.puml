@@ -1,0 +1,26 @@
+@startuml
+class SurveyManager {
+    - firebaseRegisterUrl : string = "https://us-central1-YOUR_PROJECT.cloudfunctions.net/registerUnityId"
+    - surveyToken : string = "SURVEY_TOKEN"
+    - surveyUrlBase : string = "https://YOUR_SURVEY_URL"
+    - unityId : string
+    - assignedGroup : string
+    - chosenDirection : string
+    - Awake() : void
+    - Start() : void
+    + OpenSurvey(groupName:string, finalDirection:string) : void
+    - RegisterUnityId() : IEnumerator
+    - LaunchSurvey() : void
+    - MapGroupToCode(groupName:string) : string
+    - MapDirectionToCode(directionName:string) : string
+}
+class UnityIdPayload {
+    + token : string
+    + unityId : string
+    + direction : string
+    + group : string
+}
+MonoBehaviour <|-- SurveyManager
+SurveyManager --> "Instance" SurveyManager
+SurveyManager +-- UnityIdPayload
+@enduml

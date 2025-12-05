@@ -1,0 +1,214 @@
+@startuml
+class MainMenu {
+    - Start() : void
+    + GoToMain() : void
+    + GoToSources() : void
+    + OnPlayClicked() : void
+}
+MonoBehaviour <|-- MainMenu
+MainMenu --> "mainPanel" GameObject
+MainMenu --> "sourcesPanel" GameObject
+class TextureScroller {
+    - scrollSpeedX : float
+    - scrollSpeedY : float
+    - offsetX : float
+    - offsetY : float
+    - Awake() : void
+    - Update() : void
+}
+MonoBehaviour <|-- TextureScroller
+TextureScroller --> "meshRenderer" MeshRenderer
+class Rotator {
+    - rotationSpeed : float = 50.0f
+    - Update() : void
+}
+MonoBehaviour <|-- Rotator
+Rotator o-> "rotationAxis" Vector3
+Rotator o-> "rotationSpace" Space
+class Lightning {
+    - destroyDistanceBehindPlayer : float = 50.0f
+    - Update() : void
+    - OnTriggerEnter(other:Collider) : void
+}
+MonoBehaviour <|-- Lightning
+Lightning --> "thunderCrackSound" AudioClip
+Lightning --> "playerTransform" Transform
+class CutsceneHandler {
+    - <<const>> FADE_FRAME_COUNT : int = 90
+    - Awake() : void
+    + StartCutscene() : void
+    - LoadTunnelCG() : IEnumerator
+    - OnChoiceSelected(direction:string) : void
+    - LoadExitCG(direction:string) : IEnumerator
+    - FadeAll(image:RawImage, canvasGroup:CanvasGroup, startColor:Color, endColor:Color, startAlpha:float, endAlpha:float, frameCount:int) : IEnumerator
+}
+MonoBehaviour <|-- CutsceneHandler
+CutsceneHandler --> "tunnelUIPanel" GameObject
+CutsceneHandler --> "exitUIPanel" GameObject
+CutsceneHandler --> "TunnelCG" RawImage
+CutsceneHandler --> "ExitCG" RawImage
+CutsceneHandler --> "tunnelPromptText" Text
+CutsceneHandler --> "exitPromptText" Text
+CutsceneHandler --> "leftButton" Button
+CutsceneHandler --> "rightButton" Button
+CutsceneHandler --> "surveyButton" Button
+CutsceneHandler --> "tunnelCanvasGroup" CanvasGroup
+CutsceneHandler --> "exitCanvasGroup" CanvasGroup
+class Car {
+    - speed : float = 100.0f
+    - _currentSpeed : float
+    - destroyDistanceBehindPlayer : float = 250.0f
+    - Awake() : void
+    - FixedUpdate() : void
+    - Update() : void
+    - OnTriggerEnter(other:Collider) : void
+}
+MonoBehaviour <|-- Car
+Car --> "driveBySound" AudioClip
+Car --> "playerTransform" Transform
+class FirebaseWebGLManager {
+    - nextGroup : int = 0
+    + IsReady : bool <<get>> = false
+    + {static} <<extern>> GetJSON(path:string, objectName:string, callback:string, fallback:string) : void
+    - Awake() : void
+    - Start() : void
+    + GetCurrentGroup() : int
+    - OnRequestFailed(error:string) : void
+    - OnRequestSuccess1(data:string) : void
+    - OnRequestSuccess2(data:string) : void
+    - OnRequestSuccess3(data:string) : void
+    - AssignGroup() : void
+    - Log(message:string) : void
+}
+MonoBehaviour <|-- FirebaseWebGLManager
+FirebaseWebGLManager --> "Instance" FirebaseWebGLManager
+class SurveyManager {
+    - firebaseRegisterUrl : string = "https://us-central1-YOUR_PROJECT.cloudfunctions.net/registerUnityId"
+    - surveyToken : string = "SURVEY_TOKEN"
+    - surveyUrlBase : string = "https://YOUR_SURVEY_URL"
+    - unityId : string
+    - assignedGroup : string
+    - chosenDirection : string
+    - Awake() : void
+    - Start() : void
+    + OpenSurvey(groupName:string, finalDirection:string) : void
+    - RegisterUnityId() : IEnumerator
+    - LaunchSurvey() : void
+    - MapGroupToCode(groupName:string) : string
+    - MapDirectionToCode(directionName:string) : string
+}
+class UnityIdPayload {
+    + token : string
+    + unityId : string
+    + direction : string
+    + group : string
+}
+MonoBehaviour <|-- SurveyManager
+SurveyManager --> "Instance" SurveyManager
+SurveyManager +-- UnityIdPayload
+class GroundTile {
+    - tileDestroyThresholdZ : float = 168.0f
+    - snailSpawnThresholdZ : float = 180.0f
+    - snailSpawnXOffset : float = 3.75f
+    - <<const>> SNAIL_SPAWN_Y_POSITION : float = 0.5f
+    - Start() : void
+    - OnTriggerExit(other:Collider) : void
+    + SpawnSnails() : void
+    - GetRandomPointInCollider(collider:Collider) : Vector3
+}
+MonoBehaviour <|-- GroundTile
+GroundTile --> "snailPrefab" GameObject
+GroundTile --> "groundSpawner" GroundSpawner
+class SnailCoin {
+    - turnSpeed : float = 90.0f
+    - OnTriggerEnter(other:Collider) : void
+    - Update() : void
+}
+MonoBehaviour <|-- SnailCoin
+class CameraFollow {
+    - Awake() : void
+    - LateUpdate() : void
+}
+MonoBehaviour <|-- CameraFollow
+CameraFollow --> "player" Transform
+CameraFollow --> "offset" Vector3
+class GameManager {
+    - speedIncreasePerPoint : float = 0.1f
+    - _score : int
+    - Awake() : void
+    - Start() : void
+    - WaitForFirebaseGroupAssignment() : System.Collections.IEnumerator
+    - SetGameMode(group:ParticipantGroup) : void
+    + IncrementScore() : void
+    - UpdateScoreDisplay() : void
+}
+enum ParticipantGroup {
+    NoOverride= 0,
+    TestGroup1Text= 1,
+    TestGroup2Arrows= 2,
+    ControlGroupBlank= 3,
+}
+MonoBehaviour <|-- GameManager
+GameManager --> "Instance" GameManager
+GameManager o-> "gameModeOverride" ParticipantGroup
+GameManager --> "CurrentGameMode" ParticipantGroup
+GameManager --> "scoreText" Text
+GameManager --> "crunchSound" AudioClip
+GameManager --> "playerController" ToadController
+GameManager +-- ParticipantGroup
+class ToadController {
+    - forwardSpeed : float = 10.0f
+    - horizontalMovementMultiplier : float = 1.75f
+    - speedIncreasePerPoint : float = 0.1f
+    - horizontalBounds : float = 3.25f
+    - _isAlive : bool = true
+    - _cutsceneActive : bool = false
+    - _horizontalInput : float
+    + ForwardSpeed : float <<get>> <<set>>
+    + SpeedIncreasePerPoint : float <<get>> <<set>>
+    - Awake() : void
+    - FixedUpdate() : void
+    - Update() : void
+    - HandlePlayerMovement() : void
+    - HandleCutsceneMovement() : void
+    - OnTriggerEnter(other:Collider) : void
+    + StartDrainCutscene() : void
+}
+MonoBehaviour <|-- ToadController
+ToadController --> "toadAnimator" Animator
+ToadController --> "cutsceneRotationScript" MonoBehaviour
+ToadController --> "stormDrainEntrance" Transform
+ToadController --> "cutsceneHandler" CutsceneHandler
+ToadController --> "playerRigidbody" Rigidbody
+class GroundSpawner {
+    + SpawnTile(spawnItems:bool) : void
+    - Start() : void
+}
+MonoBehaviour <|-- GroundSpawner
+GroundSpawner --> "groundTile" GameObject
+GroundSpawner --> "nextSpawnPoint" Vector3
+class ImageFlasher {
+    - flashDuration : float = 0.033f
+    - Awake() : void
+    - DisableImageState() : void
+    + TriggerCarFlash() : void
+    + TriggerStormFlash() : void
+    - HandleCarFlash() : IEnumerator
+    - HandleStormFlash() : IEnumerator
+    - FadeImageAlpha(image:RawImage, startAlpha:float, endAlpha:float, frameCount:int) : IEnumerator
+}
+class CoroutineUtils <<static>> {
+    + {static} WaitForFrames(frames:int) : IEnumerator
+}
+MonoBehaviour <|-- ImageFlasher
+ImageFlasher --> "Instance" ImageFlasher
+ImageFlasher --> "carTextToFlash" RawImage
+ImageFlasher --> "carArrowToFlash" RawImage
+ImageFlasher --> "stormTextToFlash" RawImage
+ImageFlasher --> "stormArrowToFlash" RawImage
+ImageFlasher --> "whiteImg" RawImage
+ImageFlasher --> "blackImg" RawImage
+ImageFlasher --> "scoreText" Text
+ImageFlasher --> "_flashWait" WaitForSecondsRealtime
+ImageFlasher --> "_currentFlashCoroutine" Coroutine
+@enduml
