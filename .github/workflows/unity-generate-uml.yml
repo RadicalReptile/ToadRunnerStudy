@@ -3,7 +3,7 @@ name: Generate UML
 on:
   push:
     branches:
-      - master  # Or 'main', depending on your branch name
+      - master
   workflow_dispatch:
 
 jobs:
@@ -11,10 +11,10 @@ jobs:
     name: 'Generate UML'
     runs-on: ubuntu-latest
     permissions:
-      contents: write # <--- CRITICAL FIX FOR 403 ERROR
+      contents: write
     env:
-      CODE_PATH: "./Assets/Scripts/"      # <-- Verify this path is correct
-      UML_OUTPUT_PATH: "./UML/"          # <-- Verify this path is desired
+      CODE_PATH: "./Assets/Scripts/"
+      UML_OUTPUT_PATH: "./UML/"
       UMP_GENERATION_PARAMETERS: -createAssociation -allInOne
       
     steps:
@@ -32,17 +32,18 @@ jobs:
           dotnet tool install --global PlantUmlClassDiagramGenerator --version 1.4.0 
           puml-gen ${{ env.CODE_PATH }} ${{ env.UML_OUTPUT_PATH }} -dir ${{ env.UMP_GENERATION_PARAMETERS }}
         
-      # 3. CONVERT PUML TO SVG
+      # 3. CONVERT PUML TO SVG (THE FINAL FIX: Swapping to the reliable official action)
       - name: Generate SVG Diagrams
-        uses: Timmy/plantuml-action@v1
+        uses: plantuml/plantuml-action@v2 # <-- RELIABLE ACTION
         with:
+          # This action reliably finds all PUML files and renders the SVG next to them
           path: ${{ env.UML_OUTPUT_PATH }}*.puml 
-          args: -tsvg # Generates SVG files
-
-      # 4. Commit and Push Changes (FIXED: Added '.' to commit all contents of the directory)
+          args: -tsvg
+          
+      # 4. Commit and Push Changes 
       - uses: EndBug/add-and-commit@v7.0.0
         with:
           author_name: 'UML Bot'
           message: 'Generate UML (${{ github.workflow }})'
           author_email: 41898282+uml-bot[bot]@users.noreply.github.com
-          add: ${{ env.UML_OUTPUT_PATH }}. # <-- FIX: This ensures SVGs inside the UML folder are tracked
+          add: ${{ env.UML_OUTPUT_PATH }}.
