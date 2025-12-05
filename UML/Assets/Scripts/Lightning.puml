@@ -1,0 +1,10 @@
+@startuml
+class Lightning {
+    - destroyDistanceBehindPlayer : float = 50.0f
+    - Update() : void
+    - OnTriggerEnter(other:Collider) : void
+}
+MonoBehaviour <|-- Lightning
+Lightning --> "thunderCrackSound" AudioClip
+Lightning --> "playerTransform" Transform
+@enduml

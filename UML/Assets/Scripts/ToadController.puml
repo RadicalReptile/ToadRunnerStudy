@@ -1,0 +1,26 @@
+@startuml
+class ToadController {
+    - forwardSpeed : float = 10.0f
+    - horizontalMovementMultiplier : float = 1.75f
+    - speedIncreasePerPoint : float = 0.1f
+    - horizontalBounds : float = 3.25f
+    - _isAlive : bool = true
+    - _cutsceneActive : bool = false
+    - _horizontalInput : float
+    + ForwardSpeed : float <<get>> <<set>>
+    + SpeedIncreasePerPoint : float <<get>> <<set>>
+    - Awake() : void
+    - FixedUpdate() : void
+    - Update() : void
+    - HandlePlayerMovement() : void
+    - HandleCutsceneMovement() : void
+    - OnTriggerEnter(other:Collider) : void
+    + StartDrainCutscene() : void
+}
+MonoBehaviour <|-- ToadController
+ToadController --> "toadAnimator" Animator
+ToadController --> "cutsceneRotationScript" MonoBehaviour
+ToadController --> "stormDrainEntrance" Transform
+ToadController --> "cutsceneHandler" CutsceneHandler
+ToadController --> "playerRigidbody" Rigidbody
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+class FirebaseWebGLManager {
+    - nextGroup : int = 0
+    + IsReady : bool <<get>> = false
+    + {static} <<extern>> GetJSON(path:string, objectName:string, callback:string, fallback:string) : void
+    - Awake() : void
+    - Start() : void
+    + GetCurrentGroup() : int
+    - OnRequestFailed(error:string) : void
+    - OnRequestSuccess1(data:string) : void
+    - OnRequestSuccess2(data:string) : void
+    - OnRequestSuccess3(data:string) : void
+    - AssignGroup() : void
+    - Log(message:string) : void
+}
+MonoBehaviour <|-- FirebaseWebGLManager
+FirebaseWebGLManager --> "Instance" FirebaseWebGLManager
+@enduml

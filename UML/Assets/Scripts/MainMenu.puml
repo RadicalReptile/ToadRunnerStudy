@@ -1,0 +1,11 @@
+@startuml
+class MainMenu {
+    - Start() : void
+    + GoToMain() : void
+    + GoToSources() : void
+    + OnPlayClicked() : void
+}
+MonoBehaviour <|-- MainMenu
+MainMenu --> "mainPanel" GameObject
+MainMenu --> "sourcesPanel" GameObject
+@enduml

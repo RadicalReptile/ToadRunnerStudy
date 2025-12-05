@@ -1,0 +1,8 @@
+@startuml
+class SnailCoin {
+    - turnSpeed : float = 90.0f
+    - OnTriggerEnter(other:Collider) : void
+    - Update() : void
+}
+MonoBehaviour <|-- SnailCoin
+@enduml
