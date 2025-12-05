@@ -1,9 +1,9 @@
 @startuml
 class CameraFollow {
+    - player : Transform
+    - offset : Vector3
     - Awake() : void
     - LateUpdate() : void
 }
 MonoBehaviour <|-- CameraFollow
-CameraFollow --> "player" Transform
-CameraFollow --> "offset" Vector3
 @enduml

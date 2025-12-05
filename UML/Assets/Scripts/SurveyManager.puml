@@ -1,5 +1,6 @@
 @startuml
 class SurveyManager {
+    + {static} Instance : SurveyManager <<get>>
     - firebaseRegisterUrl : string = "https://us-central1-YOUR_PROJECT.cloudfunctions.net/registerUnityId"
     - surveyToken : string = "SURVEY_TOKEN"
     - surveyUrlBase : string = "https://YOUR_SURVEY_URL"
@@ -21,6 +22,5 @@ class UnityIdPayload {
     + group : string
 }
 MonoBehaviour <|-- SurveyManager
-SurveyManager --> "Instance" SurveyManager
 SurveyManager +-- UnityIdPayload
 @enduml

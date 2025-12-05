@@ -4,6 +4,11 @@ class ToadController {
     - horizontalMovementMultiplier : float = 1.75f
     - speedIncreasePerPoint : float = 0.1f
     - horizontalBounds : float = 3.25f
+    - toadAnimator : Animator
+    - cutsceneRotationScript : MonoBehaviour
+    - stormDrainEntrance : Transform
+    - cutsceneHandler : CutsceneHandler
+    - playerRigidbody : Rigidbody
     - _isAlive : bool = true
     - _cutsceneActive : bool = false
     - _horizontalInput : float
@@ -18,9 +23,4 @@ class ToadController {
     + StartDrainCutscene() : void
 }
 MonoBehaviour <|-- ToadController
-ToadController --> "toadAnimator" Animator
-ToadController --> "cutsceneRotationScript" MonoBehaviour
-ToadController --> "stormDrainEntrance" Transform
-ToadController --> "cutsceneHandler" CutsceneHandler
-ToadController --> "playerRigidbody" Rigidbody
 @enduml

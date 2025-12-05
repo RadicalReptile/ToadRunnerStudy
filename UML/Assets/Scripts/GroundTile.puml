@@ -1,15 +1,15 @@
 @startuml
 class GroundTile {
+    - snailPrefab : GameObject
     - tileDestroyThresholdZ : float = 168.0f
     - snailSpawnThresholdZ : float = 180.0f
     - snailSpawnXOffset : float = 3.75f
     - <<const>> SNAIL_SPAWN_Y_POSITION : float = 0.5f
+    - groundSpawner : GroundSpawner
     - Start() : void
     - OnTriggerExit(other:Collider) : void
     + SpawnSnails() : void
     - GetRandomPointInCollider(collider:Collider) : Vector3
 }
 MonoBehaviour <|-- GroundTile
-GroundTile --> "snailPrefab" GameObject
-GroundTile --> "groundSpawner" GroundSpawner
 @enduml
