@@ -11,35 +11,32 @@ jobs:
     name: 'Generate UML'
     runs-on: ubuntu-latest
     env:
-      CODE_PATH: "./Assets/Scripts/"  # <-- Check this path is correct
-      UML_OUTPUT_PATH: "./UML/"        # <-- Check this path is desired
+      CODE_PATH: "./Assets/Scripts/"      # <-- Verify this path is correct
+      UML_OUTPUT_PATH: "./UML/"          # <-- Verify this path is desired
       UMP_GENERATION_PARAMETERS: -createAssociation -allInOne
       
     steps:
       - uses: actions/checkout@v2
 
-      # 1. Setup .NET (Required for the C# PlantUML tool)
+      # 1. SETUP .NET (FIXED: Updated to v3 and 6.0.x for stability)
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 5.0.x  # Use 5.0.x as specified in the original
+          dotnet-version: 6.0.x 
 
-      # 2. Install and Generate PlantUML Files (puml-gen)
-      # This step handles the check for code existence implicitly.
+      # 2. INSTALL AND GENERATE PLANTUML FILES (FIXED: Updated generator tool version)
       - name: Generate PlantUML files
         run: |
-          # Install the generator tool
-          dotnet tool install --global PlantUmlClassDiagramGenerator --version 1.2.4
+          # Install the generator tool with a modern, compatible version
+          dotnet tool install --global PlantUmlClassDiagramGenerator --version 1.2.8
           # Run the generator
           puml-gen ${{ env.CODE_PATH }} ${{ env.UML_OUTPUT_PATH }} -dir ${{ env.UMP_GENERATION_PARAMETERS }}
-        # The tool will exit gracefully if CODE_PATH is empty
         
-      # 3. CONVERT PUML TO SVG/PNG (THE FIX!)
-      - name: PlantUML Action
-        # We use a reliable, alternative action here
-        uses: Timmy/plantuml-action@v1 
+      # 3. CONVERT PUML TO SVG (FIXED: Using the reliable plantuml/plantuml-action@v2)
+      - name: Generate SVG Diagrams
+        uses: plantuml/plantuml-action@v2
         with:
-          # This tells the new action to convert all .puml files in the output directory
+          # This converts all .puml files in the output directory
           path: ${{ env.UML_OUTPUT_PATH }}*.puml 
           args: -tsvg # Generates SVG files
 
