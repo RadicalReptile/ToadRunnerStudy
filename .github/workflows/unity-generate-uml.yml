@@ -18,21 +18,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # 1. SETUP .NET (FIXED: Updated to v3 and 6.0.x for stability)
+      # 1. SETUP .NET (FIXED: Updated to v3 and 8.0.x for stability/compatibility)
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x 
+          # Using 8.0.x to ensure compatibility with the modern tool version (1.4.0)
+          dotnet-version: 8.0.x 
 
-      # 2. INSTALL AND GENERATE PLANTUML FILES (FIXED: Updated generator tool version)
+      # 2. INSTALL AND GENERATE PLANTUML FILES (FIXED: Corrected tool version to 1.4.0)
       - name: Generate PlantUML files
         run: |
-          # Install the generator tool with a modern, compatible version
-          dotnet tool install --global PlantUmlClassDiagramGenerator --version 1.2.8
+          # Install the generator tool with the latest stable version found on NuGet
+          dotnet tool install --global PlantUmlClassDiagramGenerator --version 1.4.0 
           # Run the generator
           puml-gen ${{ env.CODE_PATH }} ${{ env.UML_OUTPUT_PATH }} -dir ${{ env.UMP_GENERATION_PARAMETERS }}
         
-      # 3. CONVERT PUML TO SVG (FIXED: Using the reliable plantuml/plantuml-action@v2)
+      # 3. CONVERT PUML TO SVG (User's preferred action and path are preserved)
       - name: Generate SVG Diagrams
         uses: Timmy/plantuml-action@v1
         with:
