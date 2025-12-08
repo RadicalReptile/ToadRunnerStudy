@@ -1,6 +1,8 @@
 @startuml
 class FirebaseWebGLManager {
     - nextGroup : int = 0
+    + {static} groupCounts : int[]
+    + {static} Instance : FirebaseWebGLManager <<get>>
     + IsReady : bool <<get>> = false
     + {static} <<extern>> GetJSON(path:string, objectName:string, callback:string, fallback:string) : void
     - Awake() : void
@@ -14,5 +16,4 @@ class FirebaseWebGLManager {
     - Log(message:string) : void
 }
 MonoBehaviour <|-- FirebaseWebGLManager
-FirebaseWebGLManager --> "Instance" FirebaseWebGLManager
 @enduml

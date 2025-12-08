@@ -1,9 +1,9 @@
 @startuml
 class GroundSpawner {
+    - groundTile : GameObject
+    - nextSpawnPoint : Vector3
     + SpawnTile(spawnItems:bool) : void
     - Start() : void
 }
 MonoBehaviour <|-- GroundSpawner
-GroundSpawner --> "groundTile" GameObject
-GroundSpawner --> "nextSpawnPoint" Vector3
 @enduml

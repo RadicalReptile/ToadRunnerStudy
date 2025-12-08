@@ -2,13 +2,13 @@
 class Car {
     - speed : float = 100.0f
     - _currentSpeed : float
+    - driveBySound : AudioClip
     - destroyDistanceBehindPlayer : float = 250.0f
+    - playerTransform : Transform
     - Awake() : void
     - FixedUpdate() : void
     - Update() : void
     - OnTriggerEnter(other:Collider) : void
 }
 MonoBehaviour <|-- Car
-Car --> "driveBySound" AudioClip
-Car --> "playerTransform" Transform
 @enduml
