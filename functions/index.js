@@ -90,8 +90,8 @@ exports.incrementGroup = functions.https.onRequest(async (req, res) => {
     return res.status(204).send("");
   }
 
-  // Note: Your Apps Script sends GET requests with query parameters.
-  // We use the body for POST and query for GET.
+  // Note: Apps Script sends GET requests with query parameters.
+  // Use the body for POST and query for GET.
   const token = req.query.token || req.body.token;
   const group = req.query.group || req.body.group;
   const submissionId = req.query.submissionId || req.body.submissionId;
