@@ -4,4 +4,4 @@
 
 <img width="1080" height="1458" alt="gameplayDiagram" src="https://github.com/user-attachments/assets/eb29b7d8-fdaf-48f4-b008-ea675d002baf" />
 
-<img width="5554" height="6500" alt="comDiagram" src="https://github.com/user-attachments/assets/70275325-6068-44e3-9b7c-9ab2e3715636" />
+<img width="5554" height="6500" alt="comDiagram" src="https://github.com/user-attachments/assets/7d0fd6a5-3a2c-43fd-95d6-1d7e030f9a10" />
