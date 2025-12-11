@@ -1,4 +1,6 @@
-🐸 Toad Runner — WebGL Subliminal Priming Experiment (Unity 6.0) [![DOI](https://zenodo.org/badge/1058820311.svg)](https://doi.org/10.5281/zenodo.17904367)
+[![DOI](https://zenodo.org/badge/1058820311.svg)](https://doi.org/10.5281/zenodo.17904367)
+
+🐸 Toad Runner — WebGL Subliminal Priming Experiment (Unity 6.0)
 
 Toad Runner is a Unity 6.0 (6000.0.50f1) WebGL project developed for a bachelor’s dissertation examining whether subliminal visual cues can influence directional choices in a short browser-based game. The project includes both the game itself and the supporting infrastructure required for running the study remotely.
 
