@@ -29,7 +29,7 @@ https://www.youtube.com/watch?v=fg_aiGVeKc4
 
 <img width="1080" height="1458" alt="gameplayDiagram" src="https://github.com/user-attachments/assets/eb29b7d8-fdaf-48f4-b008-ea675d002baf" />
 
-<img width="5664" height="6550" alt="comDiagram" src="https://github.com/user-attachments/assets/81f6c588-1797-414c-a6fc-b063a854d9cb" />
+<img width="5664" height="6550" alt="comDiagram" src="https://github.com/user-attachments/assets/24fe280e-8d7f-42dc-8606-548b2bd63481" />
 
 
 📚 Asset Credits
